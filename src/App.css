@@ -31,3 +31,7 @@ body{
   max-height: 40px;
 }
 
+
+#page-number-btn.active{
+  background-color: white;
+}

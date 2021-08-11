@@ -12,6 +12,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1)
   const [tasksPerPage, setTasksPerPage] = useState(10)
 
+
   const getTasks = async ()=>{
     const url = 'http://127.0.0.1:8000/api/task-list/'
     const response = await fetch(url);
@@ -77,7 +78,10 @@ function App() {
         <Pagination 
           totalTasks = {tasks.length}
           tasksPerPage = {tasksPerPage}
+          currentPage={currentPage}
+          setCurrentPage = {setCurrentPage}
           paginate={paginate}
+
 
         
         /> 
