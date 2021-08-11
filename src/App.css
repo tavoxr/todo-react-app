@@ -1,6 +1,32 @@
 body{
-  background: #fd746c;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #ff9068, #fd746c);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #ff9068, #fd746c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #C04848;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #480048, #C04848);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #480048, #C04848); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   
 }
+
+
+#task-card{
+  background: rgb(37, 37, 37);
+  color: white;
+}
+#task-card:hover{
+  background: rgb(88, 88, 88); 
+
+}
+
+#task-container{
+  background: rgb(37, 37, 37);
+
+}
+#task{
+  font-size: 20px;
+  width: 85%;
+
+
+}
+
+.task-btn{
+  max-height: 40px;
+}
+

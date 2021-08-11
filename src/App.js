@@ -6,11 +6,10 @@ import TaskList from './components/TaskList'
 function App() {
 
   const [taskList, setTaskList] = useState([])
-  const [activeTask, setActiveTask] = useState({id: null, name: '', completed: false})
+  const [activeTask, setActiveTask] = useState({ name: '', completed: false})
   const [editingTask, setEditingTask] = useState(false)
 
-  useEffect( async ()=>{
-
+  const getTasks = async ()=>{
     const url = 'http://127.0.0.1:8000/api/task-list/'
     const response = await fetch(url);
     const data =  await response.json();
@@ -18,6 +17,12 @@ function App() {
     console.log('tasks', data)
     
     setTaskList(data)
+
+    }
+
+  useEffect(  ()=>{
+    getTasks()
+
     
   },[])
 
@@ -30,7 +35,7 @@ function App() {
       <div className="row mt-5">
         <div className="col-sm-12 col-md-10 col-lg-10 m-auto">
 
-        <TaskContainer/>
+        <TaskContainer activeTask={activeTask} setActiveTask={setActiveTask} getTasks={getTasks}/>
         <TaskList taskList = {taskList}/>
         </div>
         
