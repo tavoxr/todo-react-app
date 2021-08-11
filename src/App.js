@@ -6,7 +6,7 @@ import TaskList from './components/TaskList'
 function App() {
 
   const [taskList, setTaskList] = useState([])
-  const [activeTask, setActiveTask] = useState({ name: '', completed: false})
+  const [activeTask, setActiveTask] = useState({id:null, name: '', completed: false})
   const [editingTask, setEditingTask] = useState(false)
 
   const getTasks = async ()=>{
@@ -19,6 +19,16 @@ function App() {
     setTaskList(data)
 
     }
+
+  const startEditing = (task)=>{
+
+    setActiveTask(task)
+    setEditingTask(true)
+
+    console.log('editing')
+    console.log('task: ', task)
+
+  }
 
   useEffect(  ()=>{
     getTasks()
@@ -35,8 +45,19 @@ function App() {
       <div className="row mt-5">
         <div className="col-sm-12 col-md-10 col-lg-10 m-auto">
 
-        <TaskContainer activeTask={activeTask} setActiveTask={setActiveTask} getTasks={getTasks}/>
-        <TaskList taskList = {taskList}/>
+        <TaskContainer 
+            activeTask={activeTask} 
+            setActiveTask={setActiveTask} 
+            getTasks={getTasks}  
+            editingTask={editingTask}
+            setEditingTask={setEditingTask}
+        />
+
+        <TaskList 
+            taskList = {taskList} 
+            startEditing={startEditing} 
+            editingTask={editingTask}
+        />
         </div>
         
         

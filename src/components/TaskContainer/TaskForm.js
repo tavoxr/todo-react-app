@@ -5,7 +5,7 @@ import React from 'react'
 function TaskForm(props) {
 
 
-    const { activeTask, setActiveTask, getTasks } = props
+    const { activeTask, setActiveTask, getTasks, editingTask, setEditingTask } = props
 
     function getCookie(name) {
         let cookieValue = null;
@@ -24,16 +24,13 @@ function TaskForm(props) {
     }
 
     
-    
     const handleChange = (e) => {
         var name = e.target.name
         var value = e.target.value
         console.log(`name: ${name}, value: ${value}`)
 
-        setActiveTask({ name: value })
-
+        setActiveTask( { ...activeTask, name: value })
     }
-
 
     const handleSubmit = (e) => {
         const csrftoken = getCookie('csrftoken');
@@ -42,26 +39,54 @@ function TaskForm(props) {
         console.log('submit')
         console.log('activeTask ', activeTask)
         
-        const url = "http://localhost:8000/api/task-create/"
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken,        
-            },
-            body: JSON.stringify(activeTask)
-        }).then((response) => {
-            response.json()
-            console.log('task created: ', response)
+        if(editingTask === true){
+            const url = `http://localhost:8000/api/task-update/${activeTask.id}/`
 
-            setActiveTask({ name: '', completed: false })
-            getTasks()
+            fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,        
+                },
+                body: JSON.stringify({name: activeTask.name, completed: activeTask.completed})
+            }).then((response) => {
+                response.json()
+                console.log('Task Edited: ', response)
 
-        }).catch((error)=>{
-            console.log('ERROR: ', error)
-        })
+                setEditingTask(false)
+                setActiveTask({ name: '', completed: false })
+                getTasks()
+
+            }).catch((error)=>{
+                console.log('ERROR: ', error)
+            })
+
+        }else{        
+            const url = "http://localhost:8000/api/task-create/"
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,        
+                },
+                body: JSON.stringify({name: activeTask.name, completed: activeTask.completed})
+            }).then((response) => {
+                response.json()
+                console.log('task created: ', response)
+
+                setActiveTask({ name: '', completed: false })
+                getTasks()
+
+            }).catch((error)=>{
+                console.log('ERROR: ', error)
+            })
+
+        }
 
     }
+
+    
+
 
     return (
         <form id="form" className="form" onSubmit={handleSubmit}>

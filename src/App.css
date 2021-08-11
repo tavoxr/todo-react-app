@@ -17,6 +17,7 @@ body{
 
 #task-container{
   background: rgb(37, 37, 37);
+  height: 80px;
 
 }
 #task{
