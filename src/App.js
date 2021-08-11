@@ -2,23 +2,27 @@ import React,{useState, useEffect} from 'react';
 import './App.css';
 import TaskContainer from './components/TaskContainer/TaskContainer'
 import TaskList from './components/TaskList'
+import Pagination from './components/Pagination';
 
 function App() {
 
-  const [taskList, setTaskList] = useState([])
+  const [tasks, setTasks] = useState([])
   const [activeTask, setActiveTask] = useState({id:null, name: '', completed: false})
   const [editingTask, setEditingTask] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [tasksPerPage, setTasksPerPage] = useState(10)
 
   const getTasks = async ()=>{
     const url = 'http://127.0.0.1:8000/api/task-list/'
     const response = await fetch(url);
     const data =  await response.json();
     
+    console.log('data', data)
     console.log('tasks', data)
     
-    setTaskList(data)
-
-    }
+    setTasks(data)
+  
+  }
 
   const startEditing = (task)=>{
 
@@ -30,11 +34,21 @@ function App() {
 
   }
 
-  useEffect(  ()=>{
-    getTasks()
 
-    
+  useEffect(  ()=>{
+      getTasks() 
+
   },[])
+
+  // Get current posts
+  const indexOfLastTask =  currentPage * tasksPerPage
+  const indexOfFirstTask =  indexOfLastTask - tasksPerPage
+  const currentTasks = tasks.slice(indexOfFirstTask, indexOfLastTask)
+
+  // Change Current page
+  const  paginate = (pageNumber)=>{
+    setCurrentPage(pageNumber)
+  }
 
   
   
@@ -54,10 +68,21 @@ function App() {
         />
 
         <TaskList 
-            taskList = {taskList} 
+            tasks = {currentTasks} 
             startEditing={startEditing} 
             editingTask={editingTask}
         />
+
+        
+        <Pagination 
+          totalTasks = {tasks.length}
+          tasksPerPage = {tasksPerPage}
+          paginate={paginate}
+
+        
+        /> 
+
+                
         </div>
         
         

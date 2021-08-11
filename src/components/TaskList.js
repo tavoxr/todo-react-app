@@ -1,14 +1,14 @@
 import React from 'react';
-
+import Pagination from './Pagination';
 
 function TaskList(props){
 
-    const {taskList, startEditing} = props
+    const {tasks, startEditing} = props
 
     return(
         <div id="list-wrapper" className="mt-3">
                     
-                {taskList.map((task)=>{
+                {tasks.map((task)=>{
                     return(
 
                         <div key={task.id}  className="card card-body mb-1 d-flex flex-row " id="task-card">                
@@ -18,6 +18,8 @@ function TaskList(props){
                         </div>
                     )
                 })}
+              
+
         </div>
     );
 }
