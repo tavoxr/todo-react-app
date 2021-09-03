@@ -64,7 +64,6 @@ function App() {
 
     const response = await fetch(url, {
       method: 'DELETE',
-      mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json',
         'X-CSRFToken': csrftoken,
@@ -115,9 +114,8 @@ function App() {
 
     const response = await fetch(url, {
       method: 'PUT',
-      mode: 'no-cors',
       headers: {
-        'Content-type': 'application/json',
+        'Content-Type': 'application/json',
         'X-CSRFToken': csrftoken,
 
       },
