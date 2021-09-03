@@ -37,11 +37,6 @@ body{
 }
 
 
-#stopEditing{
-  
-  
-
-}
 
 .btnStopEditing{
   width: 8%;
@@ -53,9 +48,10 @@ body{
 
 }
 
-
-
-
 .btnSave{
   width: 20%;
+}
+
+.titleApp{
+  color: #fff;
 }

@@ -147,7 +147,7 @@ function App() {
 
       <div className="row mt-5">
         <div className="col-sm-12 col-md-10 col-lg-10 m-auto">
-          <h1>To Do</h1>
+          <h1 className="text-center titleApp">To Do</h1>
           <TaskContainer
             activeTask={activeTask}
             setActiveTask={setActiveTask}
