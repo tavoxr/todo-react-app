@@ -1,23 +1,21 @@
 import React from 'react'
 import getCookie from '../../getCookie'
-
+import {toast } from 'react-toastify';
 
 function TaskForm(props) {
 
 
     const { activeTask, setActiveTask, getTasks, editingTask, setEditingTask } = props
 
-   
-
-    
+       
     const handleChange = (e) => {
         var name = e.target.name
         var value = e.target.value
         console.log(`name: ${name}, value: ${value}`)
 
-        setActiveTask( { ...activeTask, name: value })
-       
+        setActiveTask( { ...activeTask, name: value })    
     }
+
 
     const handleSubmit = (e) => {
         const csrftoken = getCookie('csrftoken');
@@ -28,7 +26,7 @@ function TaskForm(props) {
         
         if(editingTask === true){
 
-            const url = `http://localhost:8000/api/task-update/${activeTask.id}/`
+            const url = `${process.env.REACT_APP_BASE_URL}/api/task-update/${activeTask.id}/`
 
             fetch(url, {
                 method: 'PUT',
@@ -45,12 +43,24 @@ function TaskForm(props) {
                 setActiveTask({ name: '', completed: false })
                 getTasks()
 
+                toast.info(' 📝 Task edited!', {
+                    position: "bottom-right",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'dark'
+                    });
+
+
             }).catch((error)=>{
                 console.log('ERROR: ', error)
             })
 
         }else{        
-            const url = "http://localhost:8000/api/task-create/"
+            const url = `${process.env.REACT_APP_BASE_URL}/api/task-create/`
             fetch(url, {
                 method: 'POST',
                 headers: {
@@ -64,6 +74,18 @@ function TaskForm(props) {
 
                 setActiveTask({ name: '', completed: false })
                 getTasks()
+
+                toast.success('😀 New task created!', {
+                    position: "bottom-right",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'dark'
+                    });
+
 
             }).catch((error)=>{
                 console.log('ERROR: ', error)

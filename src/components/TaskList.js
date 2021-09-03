@@ -31,7 +31,7 @@ function TaskList(props){
                                 
                                 }
                            
-                            <button className="btn btn-sm btn-outline-light task-btn" onClick={()=> deleteTask(task)} >-</button>
+                            <button className="btn btn-sm btn-outline-light task-btn" onClick={()=> deleteTask(task)} >x</button>
                             </div>
                         </div>
                     )
