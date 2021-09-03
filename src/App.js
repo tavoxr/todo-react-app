@@ -20,15 +20,7 @@ function App() {
 
   const getTasks = async () => {
     const url = `${process.env.REACT_APP_BASE_URL}/api/task-list/`
-    const response = await fetch(url,{
-      method: 'GET',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': csrftoken,
-      }
-      
-    });
+    const response = await fetch(url);
     
     const data = await response.json();
 
