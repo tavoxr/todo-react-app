@@ -21,7 +21,7 @@ function TaskList(props){
                             }
                             </div>
                             <div>
-                                {activeTask.id == task.id ?(
+                                {activeTask.id === task.id ?(
                                     <button className={`btn btn-sm ${editingTask  ? "btn-outline-danger": "btn-outline-warning"} me-3 task-btn`} onClick={()=>startEditing(task)}>{editingTask ? "Cancel": "Edit"} </button>
                                 ) :(
                                     <button className={`btn btn-sm btn-outline-warning me-3 task-btn`} onClick={()=>startEditing(task)}>Edit</button>

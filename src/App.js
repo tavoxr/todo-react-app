@@ -35,7 +35,7 @@ function App() {
     let taskId = task.id
 
     // check if task is the same in order to activate or cancel  edition when button is pressed
-    if (activeTask.id != taskId) {
+    if (activeTask.id !== taskId) {
       setActiveTask(task)
       setEditingTask(true)
     } else {

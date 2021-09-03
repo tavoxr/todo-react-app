@@ -21,8 +21,8 @@ function Pagination(props){
 
         if(pageNumber <= maxPageNumberLimit && pageNumber >= minPageNumberLimit ){
             return(
-                <li key={pageNumber} className={ currentPage == pageNumber ? "page-item active": "page-item"}  >
-                    <a onClick={()=>paginate(pageNumber)} className="page-link bg-dark text-white" href="#">
+                <li key={pageNumber} className={ currentPage === pageNumber ? "page-item active": "page-item"}  >
+                    <a onClick={()=>paginate(pageNumber)} className="page-link bg-dark text-white" >
                         {pageNumber}
                     </a>
                 </li>
@@ -35,7 +35,7 @@ function Pagination(props){
     const handlePreviousBtn = ()=>{
         setCurrentPage(currentPage - 1)
         
-        if((currentPage -1) % pageNumberLimit == 0){
+        if((currentPage -1) % pageNumberLimit === 0){
             setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit)
             setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit )
         }
@@ -70,7 +70,7 @@ function Pagination(props){
                     <button  onClick={handlePreviousBtn} 
                         className="page-link bg-dark text-white" 
                         href="#"
-                        disabled={currentPage == pageNumbers[0] ? true: false}
+                        disabled={currentPage === pageNumbers[0] ? true: false}
                         >
                         Previous
                     </button>
@@ -82,7 +82,7 @@ function Pagination(props){
                     <button onClick={handleNextBtn} 
                             className="page-link bg-dark text-white" 
                             href="#"
-                            disabled={currentPage == pageNumbers.length ? true : false}        
+                            disabled={currentPage === pageNumbers.length ? true : false}        
                         >   
                         Next
                     </button>
