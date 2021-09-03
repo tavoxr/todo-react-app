@@ -30,6 +30,7 @@ function TaskForm(props) {
 
             fetch(url, {
                 method: 'PUT',
+                mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrftoken,        
@@ -63,6 +64,7 @@ function TaskForm(props) {
             const url = `${process.env.REACT_APP_BASE_URL}/api/task-create/`
             fetch(url, {
                 method: 'POST',
+                mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrftoken,        

@@ -20,7 +20,9 @@ function App() {
 
   const getTasks = async () => {
     const url = `${process.env.REACT_APP_BASE_URL}/api/task-list/`
-    const response = await fetch(url);
+    const response = await fetch(url,{
+      mode: 'no-cors'
+    });
     const data = await response.json();
 
     console.log('data', data)
@@ -63,6 +65,7 @@ function App() {
 
     const response = await fetch(url, {
       method: 'DELETE',
+      mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json',
         'X-CSRFToken': csrftoken,
@@ -113,6 +116,7 @@ function App() {
 
     const response = await fetch(url, {
       method: 'PUT',
+      mode: 'no-cors',
       headers: {
         'Content-type': 'application/json',
         'X-CSRFToken': csrftoken,
