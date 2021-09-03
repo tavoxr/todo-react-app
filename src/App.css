@@ -22,7 +22,7 @@ body{
 }
 #task{
   font-size: 20px;
-  width: 85%;
+  /*width: 85%;*/
 
 
 }
@@ -34,4 +34,28 @@ body{
 
 #page-number-btn.active{
   background-color: white;
+}
+
+
+#stopEditing{
+  
+  
+
+}
+
+.btnStopEditing{
+  width: 8%;
+  font-size: 1.2rem;
+}
+
+.taskInput{
+  width: 72%;
+
+}
+
+
+
+
+.btnSave{
+  width: 20%;
 }

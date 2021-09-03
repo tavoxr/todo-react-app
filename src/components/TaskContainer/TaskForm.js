@@ -1,5 +1,5 @@
 import React from 'react'
-
+import getCookie from '../../getCookie'
 
 
 function TaskForm(props) {
@@ -7,21 +7,7 @@ function TaskForm(props) {
 
     const { activeTask, setActiveTask, getTasks, editingTask, setEditingTask } = props
 
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
+   
 
     
     const handleChange = (e) => {
@@ -30,6 +16,7 @@ function TaskForm(props) {
         console.log(`name: ${name}, value: ${value}`)
 
         setActiveTask( { ...activeTask, name: value })
+       
     }
 
     const handleSubmit = (e) => {
@@ -40,6 +27,7 @@ function TaskForm(props) {
         console.log('activeTask ', activeTask)
         
         if(editingTask === true){
+
             const url = `http://localhost:8000/api/task-update/${activeTask.id}/`
 
             fetch(url, {
@@ -92,9 +80,10 @@ function TaskForm(props) {
         <form id="form" className="form" onSubmit={handleSubmit}>
             <div className="row ">
                 <div className="input-group">
+               
                     <input className="form-control w-75" id="name" value={activeTask.name} placeholder="task name" name="name" onChange={handleChange} />
 
-                    <button id="submit" className="form-control btn btn-warning w-25"  name="add">Save</button>
+                    <button id="submit" className={`form-control btn ${editingTask ? "btn-secondary": "btn-warning" } w-25`}  name="add">{editingTask ? "Edit" : "Save" } </button>
                 </div>
             </div>
 

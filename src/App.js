@@ -3,6 +3,7 @@ import './App.css';
 import TaskContainer from './components/TaskContainer/TaskContainer'
 import TaskList from './components/TaskList'
 import Pagination from './components/Pagination';
+import getCookie from './getCookie';
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
   const [editingTask, setEditingTask] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [tasksPerPage, setTasksPerPage] = useState(10)
+
 
 
   const getTasks = async ()=>{
@@ -27,11 +29,44 @@ function App() {
 
   const startEditing = (task)=>{
 
-    setActiveTask(task)
-    setEditingTask(true)
+    let taskId = task.id
+
+    // check if task is the same in order to activate or cancel  edition when button is pressed
+    if(activeTask.id != taskId){
+      setActiveTask(task)
+      setEditingTask(true)
+    }else{
+      setActiveTask({id:null, name: '', completed: false}) 
+      setEditingTask(false)
+
+    }
+
+   
+        
+        
+     
+   
 
     console.log('editing')
     console.log('task: ', task)
+
+  }
+
+  const deleteTask = async (task)=>{
+    let csrftoken =  getCookie('csrftoken')
+    setEditingTask(false)
+    setActiveTask({id:null, name: '', completed: false})
+    const url = `http://127.0.0.1:8000/api/task-delete/${task.id}/`
+    
+    const response = await fetch(url,{
+                                  method: 'DELETE',
+                                  headers: { 'Content-Type': 'application/json',
+                                            'X-CSRFToken': csrftoken,
+                                  }
+                      })
+
+    getTasks()
+
 
   }
 
@@ -51,6 +86,28 @@ function App() {
     setCurrentPage(pageNumber)
   }
 
+  const strikeUnstrike = async (task)=>{
+    task.completed = !task.completed
+    console.log('task status', task.completed)
+    setEditingTask(false)
+    setActiveTask({id:null, name: '', completed: false})
+
+    let csrftoken =  getCookie('csrftoken')
+    let url = `http://127.0.0.1:8000/api/task-update/${task.id}/`
+
+    const response = await fetch(url,{
+      method: 'PUT',
+      headers:{
+        'Content-type': 'application/json',
+        'X-CSRFToken': csrftoken,
+
+      },
+      body: JSON.stringify({...task, completed: task.completed})
+    })
+
+    getTasks()
+    
+  } 
   
   
   return (
@@ -72,6 +129,9 @@ function App() {
             tasks = {currentTasks} 
             startEditing={startEditing} 
             editingTask={editingTask}
+            deleteTask = {deleteTask}
+            strikeUnstrike={strikeUnstrike}
+            activeTask={activeTask}
         />
 
         
